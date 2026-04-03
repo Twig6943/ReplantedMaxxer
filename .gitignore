@@ -1,0 +1,7 @@
+# Output directory
+[Bb]uild/
+CMakeFiles
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.dll
