@@ -104,6 +104,11 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     dxgi.lib
 )
 
+# Include this bit to export our proxy function as DirectInput8Create
+target_sources(${CMAKE_PROJECT_NAME} PRIVATE
+    "${CMAKE_SOURCE_DIR}/DllProxy.def"
+)
+
 # ------------------------
 # Post-build copy
 # ------------------------
