@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="46">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"Sun"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"GameAssembly.dll"+04EE9A68</Address>
+      <Offsets>
+        <Offset>10</Offset>
+        <Offset>60</Offset>
+        <Offset>40</Offset>
+        <Offset>C8</Offset>
+        <Offset>18</Offset>
+        <Offset>5E0</Offset>
+        <Offset>B0</Offset>
+      </Offsets>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
