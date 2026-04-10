@@ -23,8 +23,8 @@ Compatible with game version `1.5.1`.
 - Actually convert the CE stuff to DLL 🟥
 
 # Credits
-@Twig6943
-@ObjectiveSwift (Helped a lot)
+- @Twig6943
+- @ObjectiveSwift (Helped a lot)
 
 ## Libraries/Projects
 - [ImGui](https://github.com/ocornut/imgui)
