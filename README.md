@@ -2,6 +2,8 @@
 
 A WIP old-school style cheat menu for Plants vs. Zombies: Replanted.
 
+Compatible with game version `1.5.1`.
+
 # Roadmap
 Sun hack
 
