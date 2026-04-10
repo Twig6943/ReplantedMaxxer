@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CheatTable CheatEngineTableVersion="46">
   <CheatEntries>
+
+    <CheatEntry>
+      <ID>5</ID>
+      <Description>"Coin"</Description>
+      <LastState Value="25000" RealAddress="6E11FCD0"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>"GameAssembly.dll"+04C56590</Address>
+      <Offsets>
+        <Offset>50</Offset>
+        <Offset>B8</Offset>
+        <Offset>5A8</Offset>
+        <Offset>10</Offset>
+        <Offset>10</Offset>
+        <Offset>0</Offset>
+        <Offset>B8</Offset>
+      </Offsets>
+    </CheatEntry>
+
     <CheatEntry>
       <ID>2</ID>
       <Description>"Sun"</Description>
@@ -16,6 +34,7 @@
         <Offset>B0</Offset>
       </Offsets>
     </CheatEntry>
+
   </CheatEntries>
   <UserdefinedSymbols/>
 </CheatTable>
