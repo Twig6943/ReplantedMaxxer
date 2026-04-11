@@ -8,9 +8,9 @@ Compatible with game version `1.5.1`.
 - Sun hack ✅
 - Money hack ✅
 - Fertilizer ✅
-- Spray 🟥
-- Chocolate 🟥
-- Tree food 🟥
+- Spray ✅
+- Chocolate ✅
+- Tree food ✅
 - Plant damage multiplier 🟥
 - Sun multiplier 🟥
 - Coin multiplier 🟥
