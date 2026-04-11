@@ -20,6 +20,7 @@ Compatible with game version `1.5.1`.
 - Unlimited plant health 🟥
 - Zombies spawner 🟥
 - Zombies movement speed multiplier 🟥
+- Manage dependencies via git 🟥
 - Actually convert the CE stuff to DLL 🟥
 
 # Credits
