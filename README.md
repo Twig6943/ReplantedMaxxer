@@ -21,6 +21,7 @@ Compatible with game version `1.5.1`.
 - Zombies spawner 🟥
 - Zombies movement speed multiplier 🟥
 - Manage dependencies via git 🟥
+- Add toggle for the gui (F1) 🟥
 - Actually convert the CE stuff to DLL 🟥
 
 # Credits
