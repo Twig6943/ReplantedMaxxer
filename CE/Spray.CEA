@@ -20,7 +20,6 @@ label(return)
 newmem:
 
 code:
-  //dec [rax+5C]
   mov [rax+5C], 400
   jmp GameAssembly.dll+6DE153
   jmp return
