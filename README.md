@@ -24,7 +24,7 @@ Compatible with game version `1.5.1`.
 
 # Credits
 - @Twig6943
-- @ObjectiveSwift (Helped a lot)
+- @ObjectiveSwift
 
 ## Libraries/Projects
 - [ImGui](https://github.com/ocornut/imgui)
