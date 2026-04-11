@@ -20,7 +20,7 @@ label(return)
 newmem:
 
 code:
-  mov [rax+58], 400 // Equals 24, anything lower equals to 0
+  mov [rax+58], 400
   xor edx,edx
   jmp return
 
