@@ -3,5 +3,6 @@
 CMakeFiles
 CMakeCache.txt
 cmake_install.cmake
+__cmake_systeminformation
 Makefile
 *.dll
