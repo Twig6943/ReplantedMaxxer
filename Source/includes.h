@@ -6,6 +6,7 @@
 #include "imgui_impl_dx11.h"
 #include "imgui_impl_win32.h"
 #include "kiero.h"
+#include <dinput8.h>
 
 typedef HRESULT(__stdcall* Present)(IDXGISwapChain* pSwapChain,
                                     UINT SyncInterval, UINT Flags);

@@ -2,8 +2,6 @@
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg,
                                               WPARAM wParam, LPARAM lParam);
 
-#include <dinput.h>
-
 extern "C" __declspec(dllexport) HRESULT __stdcall proxyDirectInput8Create(
     HINSTANCE hinst, DWORD dwVersion, REFIID riidltf, LPVOID* ppvOut,
     LPUNKNOWN punkOuter) {
