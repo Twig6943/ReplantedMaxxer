@@ -1,0 +1,69 @@
+{ Game   : Replanted.exe
+  Version:
+  Date   : 2026-04-11
+  Author : steamuser
+
+  Sets spray value to 24 (400) 
+}
+
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+
+
+
+aobscanmodule(INJECT,GameAssembly.dll,FF 48 5C E9 06 01 00 00) // should be unique
+alloc(newmem,$1000,INJECT)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  //dec [rax+5C]
+  mov [rax+5C], 400
+  jmp GameAssembly.dll+6DE153
+  jmp return
+
+INJECT:
+  jmp newmem
+  nop 3
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+INJECT:
+  db FF 48 5C E9 06 01 00 00
+
+unregistersymbol(INJECT)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: GameAssembly.dll+6DE045
+
+GameAssembly.dll+6DE014: 48 8B 15 DD F5 5A 04     - mov rdx,[GameAssembly.dll+4C8D5F8]
+GameAssembly.dll+6DE01B: B9 1F 00 00 00           - mov ecx,0000001F
+GameAssembly.dll+6DE020: E8 6B 42 92 FF           - call GameAssembly.dll+2290
+GameAssembly.dll+6DE025: 48 85 C0                 - test rax,rax
+GameAssembly.dll+6DE028: 0F 84 78 01 00 00        - je GameAssembly.dll+6DE1A6
+GameAssembly.dll+6DE02E: 48 8B 40 78              - mov rax,[rax+78]
+GameAssembly.dll+6DE032: 48 85 C0                 - test rax,rax
+GameAssembly.dll+6DE035: 0F 84 6B 01 00 00        - je GameAssembly.dll+6DE1A6
+GameAssembly.dll+6DE03B: 83 78 18 0F              - cmp dword ptr [rax+18],0F
+GameAssembly.dll+6DE03F: 0F 86 67 01 00 00        - jbe GameAssembly.dll+6DE1AC
+// ---------- INJECTING HERE ----------
+GameAssembly.dll+6DE045: FF 48 5C                 - dec [rax+5C]
+// ---------- DONE INJECTING  ----------
+GameAssembly.dll+6DE048: E9 06 01 00 00           - jmp GameAssembly.dll+6DE153
+GameAssembly.dll+6DE04D: 48 8B 4B 10              - mov rcx,[rbx+10]
+GameAssembly.dll+6DE051: 48 85 C9                 - test rcx,rcx
+GameAssembly.dll+6DE054: 0F 84 4C 01 00 00        - je GameAssembly.dll+6DE1A6
+GameAssembly.dll+6DE05A: F3 0F 10 56 24           - movss xmm2,[rsi+24]
+GameAssembly.dll+6DE05F: 45 33 C9                 - xor r9d,r9d
+GameAssembly.dll+6DE062: F3 0F 10 4E 20           - movss xmm1,[rsi+20]
+GameAssembly.dll+6DE067: 4C 89 64 24 28           - mov [rsp+28],r12
+GameAssembly.dll+6DE06C: C7 44 24 20 6A 00 00 00  - mov [rsp+20],0000006A
+GameAssembly.dll+6DE074: E8 57 B6 0F 00           - call GameAssembly.dll+7D96D0
+}
+
