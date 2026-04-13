@@ -15,7 +15,7 @@ add_link_options(/machine:x64)
 # Compiler-specific flags
 # ------------------------
 if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-  add_compile_options(/W4 /WX /wd4100)
+  add_compile_options(/wd4100)
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
   add_compile_options(
         -Wno-error
@@ -55,7 +55,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(minhook)
 
 # ------------------------
-# ImGui (FIXED - FetchContent)
+# ImGui
 # ------------------------
 FetchContent_Declare(
   imgui
