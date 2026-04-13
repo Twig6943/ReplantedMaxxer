@@ -3,6 +3,7 @@
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg,
                                               WPARAM wParam, LPARAM lParam);
 
+// dinput8
 extern "C" __declspec(dllexport) HRESULT __stdcall proxyDirectInput8Create(
     HINSTANCE hinst, DWORD dwVersion, REFIID riidltf, LPVOID* ppvOut,
     LPUNKNOWN punkOuter) {
@@ -32,10 +33,7 @@ extern "C" __declspec(dllexport) HRESULT __stdcall proxyDirectInput8Create(
   return pDirectInput8Create(hinst, dwVersion, riidltf, ppvOut, punkOuter);
 }
 
-// ==============================
 // Globals
-// ==============================
-
 Present oPresent;
 HWND window = NULL;
 WNDPROC oWndProc;
@@ -46,10 +44,7 @@ ID3D11RenderTargetView* mainRenderTargetView;
 bool init = false;
 bool showMenu = true;
 
-// ==============================
 // ImGui Init
-// ==============================
-
 void InitImGui() {
   ImGui::CreateContext();
   ImGuiIO& io = ImGui::GetIO();
@@ -67,37 +62,34 @@ void InitImGui() {
   style.FrameRounding = 2.0f;
   style.WindowTitleAlign = ImVec2(0.5f, 0.5f);
 
-  style.Colors[ImGuiCol_Button]        = ImColor(50, 200, 90, 255).Value;
+  style.Colors[ImGuiCol_Button] = ImColor(50, 200, 90, 255).Value;
   style.Colors[ImGuiCol_ButtonHovered] = ImColor(70, 240, 120, 230).Value;
-  style.Colors[ImGuiCol_ButtonActive]  = ImColor(40, 170, 80, 255).Value;
+  style.Colors[ImGuiCol_ButtonActive] = ImColor(40, 170, 80, 255).Value;
 
-  style.Colors[ImGuiCol_CheckMark]     = ImColor(150, 255, 160, 255).Value;
+  style.Colors[ImGuiCol_CheckMark] = ImColor(150, 255, 160, 255).Value;
 
-  style.Colors[ImGuiCol_FrameBg]        = ImColor(25, 35, 25, 160).Value;
-  style.Colors[ImGuiCol_FrameBgActive]  = ImColor(60, 100, 60, 200).Value;
+  style.Colors[ImGuiCol_FrameBg] = ImColor(25, 35, 25, 160).Value;
+  style.Colors[ImGuiCol_FrameBgActive] = ImColor(60, 100, 60, 200).Value;
   style.Colors[ImGuiCol_FrameBgHovered] = ImColor(45, 75, 45, 140).Value;
 
-  style.Colors[ImGuiCol_ResizeGrip]     = ImColor(90, 230, 130, 150).Value;
+  style.Colors[ImGuiCol_ResizeGrip] = ImColor(90, 230, 130, 150).Value;
 
-  style.Colors[ImGuiCol_SliderGrab]     = ImColor(80, 220, 120, 255).Value;
-  style.Colors[ImGuiCol_SliderGrabActive]= ImColor(110, 255, 150, 255).Value;
+  style.Colors[ImGuiCol_SliderGrab] = ImColor(80, 220, 120, 255).Value;
+  style.Colors[ImGuiCol_SliderGrabActive] = ImColor(110, 255, 150, 255).Value;
 
-  style.Colors[ImGuiCol_Tab]           = ImColor(60, 180, 100, 230).Value;
-  style.Colors[ImGuiCol_TabHovered]    = ImColor(80, 240, 130, 230).Value;
-  style.Colors[ImGuiCol_TabSelected]   = ImColor(70, 200, 110, 255).Value;
+  style.Colors[ImGuiCol_Tab] = ImColor(60, 180, 100, 230).Value;
+  style.Colors[ImGuiCol_TabHovered] = ImColor(80, 240, 130, 230).Value;
+  style.Colors[ImGuiCol_TabSelected] = ImColor(70, 200, 110, 255).Value;
 
   style.Colors[ImGuiCol_TitleBgActive] = ImColor(60, 180, 100, 255).Value;
 
-  style.Colors[ImGuiCol_WindowBg]      = ImColor(15, 25, 15, 255).Value;
+  style.Colors[ImGuiCol_WindowBg] = ImColor(15, 25, 15, 255).Value;
 
   ImGui_ImplWin32_Init(window);
   ImGui_ImplDX11_Init(pDevice, pContext);
 }
 
-// ==============================
 // WndProc Hook
-// ==============================
-
 LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam,
                           LPARAM lParam) {
   // Toggle menu with F1 (single press)
@@ -113,10 +105,7 @@ LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam,
   return CallWindowProc(oWndProc, hWnd, uMsg, wParam, lParam);
 }
 
-// ==============================
 // Present Hook
-// ==============================
-
 HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval,
                             UINT Flags) {
   if (!init) {
@@ -169,10 +158,7 @@ HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval,
   return oPresent(pSwapChain, SyncInterval, Flags);
 }
 
-// ==============================
 // Thread / Hook Init
-// ==============================
-
 DWORD WINAPI MainThread(LPVOID lpReserved) {
   bool init_hook = false;
 
@@ -186,10 +172,7 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
   return TRUE;
 }
 
-// ==============================
 // DLL Entry
-// ==============================
-
 BOOL WINAPI DllMain(HMODULE hMod, DWORD dwReason, LPVOID lpReserved) {
   switch (dwReason) {
     case DLL_PROCESS_ATTACH:
