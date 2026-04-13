@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.24)
 project(ReplantedMaxxer VERSION 0.5 LANGUAGES C CXX)
 
+include(FetchContent)
+
 set(CMAKE_C_STANDARD 23)
 set(CMAKE_CXX_STANDARD 23)
 
@@ -44,12 +46,19 @@ elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL
     )
 endif()
 
+FetchContent_Declare(
+  minhook
+  GIT_REPOSITORY https://github.com/TsudaKageyu/minhook.git
+  GIT_TAG 1e9ad1eb42db11bfcb65461f687c656612d1b555
+)
+
+FetchContent_MakeAvailable(minhook)
+
 # ------------------------
 # Include directories
 # ------------------------
 include_directories(
     ${CMAKE_SOURCE_DIR}/Include
-    ${CMAKE_SOURCE_DIR}/ThirdParty/MinHook
     ${CMAKE_SOURCE_DIR}/ThirdParty/imgui
     ${CMAKE_SOURCE_DIR}/ThirdParty/kiero
 )
@@ -99,7 +108,7 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
 # Link libraries
 # ------------------------
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
-    "${CMAKE_SOURCE_DIR}/ThirdParty/MinHook/libMinHook.x64.lib"
+    minhook
     d3d11.lib
     dxgi.lib
 )
