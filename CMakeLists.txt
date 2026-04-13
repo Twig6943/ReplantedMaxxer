@@ -15,10 +15,8 @@ add_link_options(/machine:x64)
 # Compiler-specific flags
 # ------------------------
 if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-  # MSVC: warning level 4, treat warnings as errors, disable unreferenced parameter warning
   add_compile_options(/W4 /WX /wd4100)
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-  # Clang/GCC: custom warnings
   add_compile_options(
         -Wno-error
         -Wno-delayed-template-parsing-in-cxx20
@@ -46,31 +44,53 @@ elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL
     )
 endif()
 
+# ------------------------
+# minhook
+# ------------------------
 FetchContent_Declare(
   minhook
   GIT_REPOSITORY https://github.com/TsudaKageyu/minhook.git
   GIT_TAG 1e9ad1eb42db11bfcb65461f687c656612d1b555
 )
-
 FetchContent_MakeAvailable(minhook)
+
+# ------------------------
+# ImGui (FIXED - FetchContent)
+# ------------------------
+FetchContent_Declare(
+  imgui
+  GIT_REPOSITORY https://github.com/ocornut/imgui.git
+  GIT_TAG 934c6a5f5ef2355d6df25395d555cb71f790c4e9
+)
+FetchContent_MakeAvailable(imgui)
+
+add_library(imgui STATIC
+    ${imgui_SOURCE_DIR}/imgui.cpp
+    ${imgui_SOURCE_DIR}/imgui_draw.cpp
+    ${imgui_SOURCE_DIR}/imgui_tables.cpp
+    ${imgui_SOURCE_DIR}/imgui_widgets.cpp
+    ${imgui_SOURCE_DIR}/backends/imgui_impl_win32.cpp
+    ${imgui_SOURCE_DIR}/backends/imgui_impl_dx11.cpp
+)
+
+target_include_directories(imgui PUBLIC
+    ${imgui_SOURCE_DIR}
+    ${imgui_SOURCE_DIR}/backends
+)
+
+target_link_libraries(imgui PUBLIC d3d11 dxgi)
 
 # ------------------------
 # Include directories
 # ------------------------
 include_directories(
     ${CMAKE_SOURCE_DIR}/Include
-    ${CMAKE_SOURCE_DIR}/ThirdParty/imgui
     ${CMAKE_SOURCE_DIR}/ThirdParty/kiero
 )
 
 # ------------------------
-# Project source files
+# Sources
 # ------------------------
-file(GLOB_RECURSE PROJECT_SOURCES_HH
-    ${CMAKE_SOURCE_DIR}/Include/*.hpp
-    ${CMAKE_SOURCE_DIR}/Include/*.h
-)
-
 file(GLOB_RECURSE PROJECT_SOURCES_CXX
     ${CMAKE_SOURCE_DIR}/Source/*.cpp
     ${CMAKE_SOURCE_DIR}/Source/*.h
@@ -78,12 +98,9 @@ file(GLOB_RECURSE PROJECT_SOURCES_CXX
     ${CMAKE_SOURCE_DIR}/Source/kiero/*.h
 )
 
-# ------------------------
-# ThirdParty source files
-# ------------------------
-file(GLOB_RECURSE THIRDPARTY_SOURCES_HH
-    ${CMAKE_SOURCE_DIR}/ThirdParty/*.hpp
-    ${CMAKE_SOURCE_DIR}/ThirdParty/*.h
+file(GLOB_RECURSE PROJECT_SOURCES_HH
+    ${CMAKE_SOURCE_DIR}/Include/*.hpp
+    ${CMAKE_SOURCE_DIR}/Include/*.h
 )
 
 file(GLOB_RECURSE THIRDPARTY_SOURCES_CXX
@@ -91,12 +108,14 @@ file(GLOB_RECURSE THIRDPARTY_SOURCES_CXX
     ${CMAKE_SOURCE_DIR}/ThirdParty/*.c
 )
 
-if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W4 -WX")
-elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
-endif()
+file(GLOB_RECURSE THIRDPARTY_SOURCES_HH
+    ${CMAKE_SOURCE_DIR}/ThirdParty/*.hpp
+    ${CMAKE_SOURCE_DIR}/ThirdParty/*.h
+)
 
+# ------------------------
+# Target
+# ------------------------
 add_library(${CMAKE_PROJECT_NAME} SHARED
     ${PROJECT_SOURCES_CXX}
     ${PROJECT_SOURCES_HH}
@@ -109,11 +128,11 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
 # ------------------------
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     minhook
+    imgui
     d3d11.lib
     dxgi.lib
 )
 
-# Include this bit to export our proxy function as DirectInput8Create
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     "${CMAKE_SOURCE_DIR}/DllProxy.def"
 )
