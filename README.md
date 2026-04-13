@@ -4,6 +4,9 @@ A WIP old-school style cheat menu for Plants vs. Zombies: Replanted.
 
 Compatible with game version `1.5.1`.
 
+# Building
+See the [workflows](./.github/workflows/)
+
 # Roadmap
 - Sun hack ✅
 - Money hack ✅
@@ -20,7 +23,7 @@ Compatible with game version `1.5.1`.
 - Unlimited plant health 🟥
 - Zombies spawner 🟥
 - Zombies movement speed multiplier 🟥
-- Manage dependencies via git 🟥
+- Manage dependencies via git (Idk how to do kiero, see [this](https://github.com/Rebzzel/kiero/pull/43) ) 🟨
 - Add version info via git (date/hash) 🟥
 - Add toggle for the gui (F1) ✅
 - Make it so that the UI survives when the window is resized 🟥
