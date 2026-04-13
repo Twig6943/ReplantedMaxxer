@@ -69,7 +69,6 @@ void CreateRenderTarget(IDXGISwapChain* pSwapChain) {
 void InitImGui() {
   ImGui::CreateContext();
   ImGuiIO& io = ImGui::GetIO();
-  io.ConfigFlags = ImGuiConfigFlags_NoMouseCursorChange;
 
   // Style
   ImGui::StyleColorsDark();
@@ -177,7 +176,6 @@ HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval,
   }
 
   ImGuiIO& io = ImGui::GetIO();
-  io.MouseDrawCursor = showMenu;
 
   ImGui::Render();
 

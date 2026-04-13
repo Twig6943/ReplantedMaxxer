@@ -1,6 +1,6 @@
 # ReplantedMaxxer
 
-A WIP DLL trainer for Plants vs. Zombies: Replanted.
+WIP trainer DLL for Plants vs. Zombies: Replanted.
 
 Compatible with game version `1.5.1`.
 
@@ -26,7 +26,7 @@ See the [workflows](./.github/workflows/)
 - Manage dependencies via git (Idk how to do kiero, see [this](https://github.com/Rebzzel/kiero/pull/43) ) 🟨
 - Add version info via git (date/hash) 🟥
 - Add toggle for the gui (F1) ✅
-- Make it so that the UI survives when the window is resized ✅
+- Make it so that the UI survives when the window is resized (still kinda dies if you alt tab when the game is fullscreen) 🟨
 - Ability to uninject the DLL 🟥
 - Actually convert the CE stuff to DLL 🟥
 
