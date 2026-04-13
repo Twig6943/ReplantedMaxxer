@@ -37,12 +37,33 @@ extern "C" __declspec(dllexport) HRESULT __stdcall proxyDirectInput8Create(
 Present oPresent;
 HWND window = NULL;
 WNDPROC oWndProc;
+
 ID3D11Device* pDevice = NULL;
 ID3D11DeviceContext* pContext = NULL;
-ID3D11RenderTargetView* mainRenderTargetView;
+ID3D11RenderTargetView* mainRenderTargetView = NULL;
 
 bool init = false;
 bool showMenu = true;
+
+// resize
+
+void CleanupRenderTarget() {
+  if (mainRenderTargetView) {
+    mainRenderTargetView->Release();
+    mainRenderTargetView = NULL;
+  }
+}
+
+void CreateRenderTarget(IDXGISwapChain* pSwapChain) {
+  ID3D11Texture2D* pBackBuffer = NULL;
+
+  if (SUCCEEDED(pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D),
+                                      (LPVOID*)&pBackBuffer))) {
+    pDevice->CreateRenderTargetView(pBackBuffer, NULL,
+                                    &mainRenderTargetView);
+    pBackBuffer->Release();
+  }
+}
 
 // ImGui Init
 void InitImGui() {
@@ -52,7 +73,8 @@ void InitImGui() {
 
   // Style
   ImGui::StyleColorsDark();
-  float dpiScale = 1.0f;  // adjust if you actually calculate DPI
+
+  float dpiScale = 1.0f;
 
   ImGuiStyle& style = ImGui::GetStyle();
   style.ScaleAllSizes(dpiScale);
@@ -92,13 +114,11 @@ void InitImGui() {
 // WndProc Hook
 LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam,
                           LPARAM lParam) {
-  // Toggle menu with F1 (single press)
   if (uMsg == WM_KEYDOWN && wParam == VK_F1) {
     showMenu = !showMenu;
-    return 0;  // block further processing (optional)
+    return 0;
   }
 
-  // Only send input to ImGui when menu is visible
   if (showMenu && ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam))
     return true;
 
@@ -108,21 +128,18 @@ LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam,
 // Present Hook
 HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval,
                             UINT Flags) {
+
   if (!init) {
-    if (SUCCEEDED(
-            pSwapChain->GetDevice(__uuidof(ID3D11Device), (void**)&pDevice))) {
+    if (SUCCEEDED(pSwapChain->GetDevice(__uuidof(ID3D11Device),
+                                       (void**)&pDevice))) {
+
       pDevice->GetImmediateContext(&pContext);
 
       DXGI_SWAP_CHAIN_DESC sd;
       pSwapChain->GetDesc(&sd);
       window = sd.OutputWindow;
 
-      ID3D11Texture2D* pBackBuffer;
-      pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D),
-                            (LPVOID*)&pBackBuffer);
-
-      pDevice->CreateRenderTargetView(pBackBuffer, NULL, &mainRenderTargetView);
-      pBackBuffer->Release();
+      CreateRenderTarget(pSwapChain);
 
       oWndProc =
           (WNDPROC)SetWindowLongPtr(window, GWLP_WNDPROC, (LONG_PTR)WndProc);
@@ -134,25 +151,39 @@ HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval,
     }
   }
 
-  // Start frame
+  // resize
+  static UINT lastW = 0;
+  static UINT lastH = 0;
+
+  DXGI_SWAP_CHAIN_DESC sd;
+  pSwapChain->GetDesc(&sd);
+
+  if (sd.BufferDesc.Width != lastW || sd.BufferDesc.Height != lastH) {
+    lastW = sd.BufferDesc.Width;
+    lastH = sd.BufferDesc.Height;
+
+    CleanupRenderTarget();
+    CreateRenderTarget(pSwapChain);
+  }
+
   ImGui_ImplDX11_NewFrame();
   ImGui_ImplWin32_NewFrame();
   ImGui::NewFrame();
 
-  // Draw only if toggled on
   if (showMenu) {
     ImGui::Begin("ImGui Window");
     ImGui::Text("(Press F1 to toggle)");
     ImGui::End();
   }
 
-  // Optional: show cursor only when menu is open
   ImGuiIO& io = ImGui::GetIO();
   io.MouseDrawCursor = showMenu;
 
-  // Render
   ImGui::Render();
-  pContext->OMSetRenderTargets(1, &mainRenderTargetView, NULL);
+
+  if (mainRenderTargetView)
+    pContext->OMSetRenderTargets(1, &mainRenderTargetView, NULL);
+
   ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
   return oPresent(pSwapChain, SyncInterval, Flags);

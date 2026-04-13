@@ -26,7 +26,8 @@ See the [workflows](./.github/workflows/)
 - Manage dependencies via git (Idk how to do kiero, see [this](https://github.com/Rebzzel/kiero/pull/43) ) 🟨
 - Add version info via git (date/hash) 🟥
 - Add toggle for the gui (F1) ✅
-- Make it so that the UI survives when the window is resized 🟥
+- Make it so that the UI survives when the window is resized ✅
+- Ability to uninject the DLL 🟥
 - Actually convert the CE stuff to DLL 🟥
 
 # Credits
