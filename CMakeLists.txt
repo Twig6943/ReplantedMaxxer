@@ -52,28 +52,15 @@ FetchContent_Declare(
   GIT_TAG 1e9ad1eb42db11bfcb65461f687c656612d1b555
 )
 
-FetchContent_Declare(
-  kiero
-  GIT_REPOSITORY https://github.com/Rebzzel/kiero.git
-  GIT_TAG 177c3cf43a1b1be2651dba2a1acb3b334899ead7
-)
-
-FetchContent_Declare(
-    imgui
-    GIT_REPOSITORY https://github.com/ocornut/imgui.git
-    GIT_TAG 934c6a5f5ef2355d6df25395d555cb71f790c4e9
-)
-
-FetchContent_MakeAvailable(minhook kiero imgui)
+FetchContent_MakeAvailable(minhook)
 
 # ------------------------
 # Include directories
 # ------------------------
 include_directories(
     ${CMAKE_SOURCE_DIR}/Include
-    ${kiero_SOURCE_DIR}
-    ${imgui_SOURCE_DIR}
-    ${imgui_SOURCE_DIR}/backends
+    ${CMAKE_SOURCE_DIR}/ThirdParty/imgui
+    ${CMAKE_SOURCE_DIR}/ThirdParty/kiero
 )
 
 # ------------------------
@@ -87,6 +74,8 @@ file(GLOB_RECURSE PROJECT_SOURCES_HH
 file(GLOB_RECURSE PROJECT_SOURCES_CXX
     ${CMAKE_SOURCE_DIR}/Source/*.cpp
     ${CMAKE_SOURCE_DIR}/Source/*.h
+    ${CMAKE_SOURCE_DIR}/Source/kiero/*.cpp
+    ${CMAKE_SOURCE_DIR}/Source/kiero/*.h
 )
 
 # ------------------------

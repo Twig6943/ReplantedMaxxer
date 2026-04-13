@@ -1,4 +1,4 @@
-BasedOnStyle: LLVM
+BasedOnStyle: Google
 DerivePointerAlignment: false
 PointerAlignment: Left
 SortIncludes: true
@@ -6,3 +6,8 @@ InsertNewlineAtEOF: true
 
 # Regroup causes unnecessary noise due to clang-format bug.
 IncludeBlocks: Preserve
+
+---
+Language: Cpp
+DisableFormat: true
+SortIncludes: false

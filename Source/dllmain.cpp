@@ -4,9 +4,9 @@ extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg,
                                               WPARAM wParam, LPARAM lParam);
 
 // dinput8
-extern "C" __declspec(dllexport) HRESULT __stdcall
-proxyDirectInput8Create(HINSTANCE hinst, DWORD dwVersion, REFIID riidltf,
-                        LPVOID* ppvOut, LPUNKNOWN punkOuter) {
+extern "C" __declspec(dllexport) HRESULT __stdcall proxyDirectInput8Create(
+    HINSTANCE hinst, DWORD dwVersion, REFIID riidltf, LPVOID* ppvOut,
+    LPUNKNOWN punkOuter) {
   using tDirectInput8Create =
       HRESULT(__stdcall*)(HINSTANCE, DWORD, REFIID, LPVOID*, LPUNKNOWN);
 
@@ -21,16 +21,14 @@ proxyDirectInput8Create(HINSTANCE hinst, DWORD dwVersion, REFIID riidltf,
     realDinput8 = LoadLibraryA(sysPath);
   }
 
-  if (!realDinput8)
-    return DIERR_GENERIC;
+  if (!realDinput8) return DIERR_GENERIC;
 
   if (!pDirectInput8Create) {
     pDirectInput8Create = reinterpret_cast<tDirectInput8Create>(
         GetProcAddress(realDinput8, "DirectInput8Create"));
   }
 
-  if (!pDirectInput8Create)
-    return DIERR_GENERIC;
+  if (!pDirectInput8Create) return DIERR_GENERIC;
 
   return pDirectInput8Create(hinst, dwVersion, riidltf, ppvOut, punkOuter);
 }
@@ -54,7 +52,7 @@ void InitImGui() {
 
   // Style
   ImGui::StyleColorsDark();
-  float dpiScale = 1.0f; // adjust if you actually calculate DPI
+  float dpiScale = 1.0f;  // adjust if you actually calculate DPI
 
   ImGuiStyle& style = ImGui::GetStyle();
   style.ScaleAllSizes(dpiScale);
@@ -97,7 +95,7 @@ LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam,
   // Toggle menu with F1 (single press)
   if (uMsg == WM_KEYDOWN && wParam == VK_F1) {
     showMenu = !showMenu;
-    return 0; // block further processing (optional)
+    return 0;  // block further processing (optional)
   }
 
   // Only send input to ImGui when menu is visible
@@ -177,14 +175,14 @@ DWORD WINAPI MainThread(LPVOID lpReserved) {
 // DLL Entry
 BOOL WINAPI DllMain(HMODULE hMod, DWORD dwReason, LPVOID lpReserved) {
   switch (dwReason) {
-  case DLL_PROCESS_ATTACH:
-    DisableThreadLibraryCalls(hMod);
-    CreateThread(nullptr, 0, MainThread, hMod, 0, nullptr);
-    break;
+    case DLL_PROCESS_ATTACH:
+      DisableThreadLibraryCalls(hMod);
+      CreateThread(nullptr, 0, MainThread, hMod, 0, nullptr);
+      break;
 
-  case DLL_PROCESS_DETACH:
-    kiero::shutdown();
-    break;
+    case DLL_PROCESS_DETACH:
+      kiero::shutdown();
+      break;
   }
   return TRUE;
 }
