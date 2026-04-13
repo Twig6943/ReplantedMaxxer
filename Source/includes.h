@@ -1,11 +1,11 @@
 #pragma once
-#include <Windows.h>
-#include <d3d11.h>
-#include <dxgi.h>
 #include "imgui.h"
 #include "imgui_impl_dx11.h"
 #include "imgui_impl_win32.h"
 #include "kiero.h"
+#include <Windows.h>
+#include <d3d11.h>
+#include <dxgi.h>
 
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>

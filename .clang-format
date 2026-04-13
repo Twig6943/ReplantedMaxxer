@@ -1,4 +1,4 @@
-BasedOnStyle: Google
+BasedOnStyle: LLVM
 DerivePointerAlignment: false
 PointerAlignment: Left
 SortIncludes: true
@@ -6,8 +6,3 @@ InsertNewlineAtEOF: true
 
 # Regroup causes unnecessary noise due to clang-format bug.
 IncludeBlocks: Preserve
-
----
-Language: Java
-DisableFormat: true
-SortIncludes: false
