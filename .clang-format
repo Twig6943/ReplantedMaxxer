@@ -1,4 +1,4 @@
-BasedOnStyle: Google
+BasedOnStyle: LLVM
 DerivePointerAlignment: false
 PointerAlignment: Left
 SortIncludes: true
