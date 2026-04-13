@@ -1,6 +1,6 @@
 # ReplantedMaxxer
 
-A WIP old-school style cheat menu for Plants vs. Zombies: Replanted.
+A WIP DLL trainer for Plants vs. Zombies: Replanted.
 
 Compatible with game version `1.5.1`.
 
