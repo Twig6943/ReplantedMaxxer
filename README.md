@@ -32,6 +32,7 @@ See the [workflows](./.github/workflows/)
 
 # Credits
 - @Twig6943
+- @blueb4lloon
 - @ObjectiveSwift
 
 ## Libraries/Projects
