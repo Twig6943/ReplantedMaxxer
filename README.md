@@ -23,7 +23,7 @@ See the [workflows](./.github/workflows/)
 - Unlimited plant health 🟥
 - Zombies spawner 🟥
 - Zombies movement speed multiplier 🟥
-- Manage dependencies via git (Idk how to do kiero, see [this](https://github.com/Rebzzel/kiero/pull/43) ) 🟨
+- Manage dependencies via git ✅
 - Add version info via git (date/hash) 🟥
 - Add toggle for the gui (F1) ✅
 - Make it so that the UI survives when the window is resized (still kinda dies if you alt tab when the game is fullscreen) 🟨

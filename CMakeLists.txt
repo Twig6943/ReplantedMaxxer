@@ -55,6 +55,50 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(minhook)
 
 # ------------------------
+# kiero
+# ------------------------
+FetchContent_Declare(
+  kiero
+  GIT_REPOSITORY https://github.com/Rebzzel/kiero.git
+  GIT_TAG 177c3cf43a1b1be2651dba2a1acb3b334899ead7
+)
+
+FetchContent_MakeAvailable(kiero)
+
+add_library(
+  kiero STATIC ${kiero_SOURCE_DIR}/kiero.cpp
+)
+
+target_include_directories(
+  kiero PUBLIC ${kiero_SOURCE_DIR}
+)
+
+# Gotta patch it like this. For some reason it only works like this.
+file(
+  READ "${kiero_SOURCE_DIR}/kiero.h" KIERO_HEADER
+)
+
+# Patch D3D11 flag
+string(REPLACE
+    "#define KIERO_INCLUDE_D3D11  0"
+    "#define KIERO_INCLUDE_D3D11  1"
+    KIERO_HEADER
+    "${KIERO_HEADER}"
+)
+
+# Patch MinHook flag
+string(REPLACE
+    "#define KIERO_USE_MINHOOK    0"
+    "#define KIERO_USE_MINHOOK    1"
+    KIERO_HEADER
+    "${KIERO_HEADER}"
+)
+
+file(
+  WRITE "${kiero_SOURCE_DIR}/kiero.h" "${KIERO_HEADER}"
+)
+
+# ------------------------
 # ImGui
 # ------------------------
 FetchContent_Declare(
@@ -78,7 +122,9 @@ target_include_directories(imgui PUBLIC
     ${imgui_SOURCE_DIR}/backends
 )
 
-target_link_libraries(imgui PUBLIC d3d11 dxgi)
+target_link_libraries(
+  imgui PUBLIC d3d11 dxgi d3dcompiler
+)
 
 # ------------------------
 # Include directories
@@ -103,16 +149,6 @@ file(GLOB_RECURSE PROJECT_SOURCES_HH
     ${CMAKE_SOURCE_DIR}/Include/*.h
 )
 
-file(GLOB_RECURSE THIRDPARTY_SOURCES_CXX
-    ${CMAKE_SOURCE_DIR}/ThirdParty/*.cpp
-    ${CMAKE_SOURCE_DIR}/ThirdParty/*.c
-)
-
-file(GLOB_RECURSE THIRDPARTY_SOURCES_HH
-    ${CMAKE_SOURCE_DIR}/ThirdParty/*.hpp
-    ${CMAKE_SOURCE_DIR}/ThirdParty/*.h
-)
-
 # ------------------------
 # Target
 # ------------------------
@@ -128,9 +164,11 @@ add_library(${CMAKE_PROJECT_NAME} SHARED
 # ------------------------
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     minhook
+    kiero
     imgui
     d3d11.lib
     dxgi.lib
+    d3dcompiler.lib
 )
 
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
