@@ -1,0 +1,19 @@
+// This file has dumps I might use
+{
+  "Address": 7021136,
+  "Name": "Reloaded.Gameplay.Plant$$IsNocturnal",
+  "Signature": "bool Reloaded_Gameplay_Plant__IsNocturnal (int32_t theSeedtype, const MethodInfo* method);",
+  "TypeSignature": "iii"
+},
+{
+  "Address": 7004672,
+  "Name": "Reloaded.Gameplay.Plant$$DoSquashDamage",
+  "Signature": "void Reloaded_Gameplay_Plant__DoSquashDamage (Reloaded_Gameplay_Plant_o* __this, const MethodInfo* method);",
+  "TypeSignature": "vii"
+},
+{
+  "Address": 7025040,
+  "Name": "Reloaded.Gameplay.Plant$$MakesSun",
+  "Signature": "bool Reloaded_Gameplay_Plant__MakesSun (Reloaded_Gameplay_Plant_o* __this, const MethodInfo* method);",
+  "TypeSignature": "iii"
+},
