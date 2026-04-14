@@ -5,7 +5,7 @@ WIP trainer DLL for Plants vs. Zombies: Replanted.
 Compatible with game version `1.5.1`.
 
 # Building
-You might base off of this src if you're on linux and need to get started with imgui dll it's very easy to build
+You might fork this src if you're on linux and need to get started with imgui dll it's very easy to build
 
 See the [workflows](./.github/workflows/)
 
