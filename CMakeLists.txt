@@ -131,7 +131,6 @@ target_link_libraries(
 # ------------------------
 include_directories(
     ${CMAKE_SOURCE_DIR}/Include
-    ${CMAKE_SOURCE_DIR}/ThirdParty/kiero
 )
 
 # ------------------------
@@ -140,8 +139,6 @@ include_directories(
 file(GLOB_RECURSE PROJECT_SOURCES_CXX
     ${CMAKE_SOURCE_DIR}/Source/*.cpp
     ${CMAKE_SOURCE_DIR}/Source/*.h
-    ${CMAKE_SOURCE_DIR}/Source/kiero/*.cpp
-    ${CMAKE_SOURCE_DIR}/Source/kiero/*.h
 )
 
 file(GLOB_RECURSE PROJECT_SOURCES_HH
@@ -155,8 +152,6 @@ file(GLOB_RECURSE PROJECT_SOURCES_HH
 add_library(${CMAKE_PROJECT_NAME} SHARED
     ${PROJECT_SOURCES_CXX}
     ${PROJECT_SOURCES_HH}
-    ${THIRDPARTY_SOURCES_CXX}
-    ${THIRDPARTY_SOURCES_HH}
 )
 
 # ------------------------
@@ -171,15 +166,9 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
     d3dcompiler.lib
 )
 
+# ------------------------
+# DLL Proxy
+# ------------------------
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     "${CMAKE_SOURCE_DIR}/DllProxy.def"
-)
-
-# ------------------------
-# Post-build copy
-# ------------------------
-add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        "$<TARGET_FILE:${CMAKE_PROJECT_NAME}>"
-        "$<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>"
 )
