@@ -21,7 +21,7 @@ See the [workflows](./.github/workflows/)
 - Coin multiplier 🟥
 - Shooter rate multiplier 🟥
 - One hit kill 🟥
-- No seed cooldown 🟥
+- No seed cooldown ✅
 - Unlimited plant health 🟥
 - Zombies spawner 🟥
 - Zombies movement speed multiplier 🟥
