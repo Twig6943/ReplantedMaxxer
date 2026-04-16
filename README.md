@@ -17,6 +17,7 @@ See the [workflows](./.github/workflows/)
 - Chocolate ✅
 - Tree food ✅
 - Plant damage multiplier 🟥
+- Plant god mode 🟥
 - Sun multiplier 🟥
 - Coin multiplier 🟥
 - Shooter rate multiplier 🟥
