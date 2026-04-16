@@ -1,0 +1,45 @@
+{ Game   : Replanted.exe
+  Version:
+  Date   : 2026-04-10
+  Author : steamuser
+
+  Multiplies earned sun by 2x.
+}
+
+
+[ENABLE]
+
+aobscanmodule(SUN_MULTIPLIER,GameAssembly.dll,01 70 10 48 8B 8B * * 00 00 48 85 C9) // should be unique
+alloc(newmem,$1000,SUN_MULTIPLIER)
+
+label(code)
+label(return)
+alloc(sun_mul,4)
+registersymbol(sun_mul)
+sun_mul:
+dd 4
+// Save
+alloc(SUN_MULTIPLIER_SAVED,10)
+SUN_MULTIPLIER_SAVED:
+  readmem(SUN_MULTIPLIER,10)
+registersymbol(SUN_MULTIPLIER_SAVED)
+
+newmem:
+  imul esi,[sun_mul]
+code:
+  readmem(SUN_MULTIPLIER,10)
+  jmp return
+
+SUN_MULTIPLIER:
+  jmp newmem
+  nop 5
+return:
+registersymbol(SUN_MULTIPLIER)
+
+[DISABLE]
+
+SUN_MULTIPLIER:
+  readmem(SUN_MULTIPLIER_SAVED,10)
+
+unregistersymbol(*)
+dealloc(*)

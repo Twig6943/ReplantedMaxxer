@@ -2,7 +2,7 @@
   Version:
   Date   : 2026-04-11
   Author : steamuser
-  
+
   Sets spray value to 24 (400)
 }
 
@@ -11,8 +11,8 @@
 
 
 
-aobscanmodule(INJECT,GameAssembly.dll,FF 48 5C E9 06 01 00 00) // should be unique
-alloc(newmem,$1000,INJECT)
+aobscanmodule(SPRAY,GameAssembly.dll,FF 48 5C E9 06 01 00 00) // should be unique
+alloc(newmem,$1000,SPRAY)
 
 label(code)
 label(return)
@@ -24,18 +24,18 @@ code:
   jmp GameAssembly.dll+6DE153
   jmp return
 
-INJECT:
+SPRAY:
   jmp newmem
   nop 3
 return:
-registersymbol(INJECT)
+registersymbol(SPRAY)
 
 [DISABLE]
 //code from here till the end of the code will be used to disable the cheat
-INJECT:
+SPRAY:
   db FF 48 5C E9 06 01 00 00
 
-unregistersymbol(INJECT)
+unregistersymbol(SPRAY)
 dealloc(newmem)
 
 {
@@ -65,4 +65,3 @@ GameAssembly.dll+6DE067: 4C 89 64 24 28           - mov [rsp+28],r12
 GameAssembly.dll+6DE06C: C7 44 24 20 6A 00 00 00  - mov [rsp+20],0000006A
 GameAssembly.dll+6DE074: E8 57 B6 0F 00           - call GameAssembly.dll+7D96D0
 }
-

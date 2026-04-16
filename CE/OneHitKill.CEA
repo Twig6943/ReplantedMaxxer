@@ -1,0 +1,40 @@
+{ Game   : Replanted.exe
+  Version:
+  Date   : 2026-04-16
+  Author : steamuser
+
+  Sets damage done to browncoat to 5000.
+}
+
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048,"GameAssembly.dll"+6F85D0)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+sub ebp,(int)5000 //
+//mov ebp,r14d
+xor edx,edx
+
+exit:
+jmp returnhere
+
+"GameAssembly.dll"+6F85D0:
+jmp newmem
+returnhere:
+
+
+
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"GameAssembly.dll"+6F85D0:
+db 41 8B EE 33 D2
+//mov ebp,r14d
+//xor edx,edx

@@ -8,8 +8,8 @@
 
 [ENABLE]
 
-aobscanmodule(INJECT,GameAssembly.dll,7E 1A 33 D2 C7 43 70 00 00 00 00) // should be unique
-alloc(newmem,$1000,INJECT)
+aobscanmodule(NO_SEED_COOLDOWN,GameAssembly.dll,7E 1A 33 D2 C7 43 70 00 00 00 00) // should be unique
+alloc(newmem,$1000,NO_SEED_COOLDOWN)
 
 label(code)
 label(return)
@@ -21,18 +21,18 @@ code:
   mov [rbx+70],00000000
   jmp return
 
-INJECT:
+NO_SEED_COOLDOWN:
   jmp newmem
   nop 6
 return:
-registersymbol(INJECT)
+registersymbol(NO_SEED_COOLDOWN)
 
 [DISABLE]
 
-INJECT:
+NO_SEED_COOLDOWN:
   db 7E 1A 33 D2 C7 43 70 00 00 00 00
 
-unregistersymbol(INJECT)
+unregistersymbol(NO_SEED_COOLDOWN)
 dealloc(newmem)
 
 {

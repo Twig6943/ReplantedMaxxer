@@ -2,7 +2,7 @@
   Version:
   Date   : 2026-04-10
   Author : steamuser
-  
+
   Sets fertilizer value to 24 (400)
 }
 
@@ -11,8 +11,8 @@
 
 
 
-aobscanmodule(INJECT,GameAssembly.dll,FF 48 58 33 D2) // should be unique
-alloc(newmem,$1000,INJECT)
+aobscanmodule(FERTILIZER,GameAssembly.dll,FF 48 58 33 D2) // should be unique
+alloc(newmem,$1000,FERTILIZER)
 
 label(code)
 label(return)
@@ -24,17 +24,17 @@ code:
   xor edx,edx
   jmp return
 
-INJECT:
+FERTILIZER:
   jmp newmem
 return:
-registersymbol(INJECT)
+registersymbol(FERTILIZER)
 
 [DISABLE]
 //code from here till the end of the code will be used to disable the cheat
-INJECT:
+FERTILIZER:
   db FF 48 58 33 D2
 
-unregistersymbol(INJECT)
+unregistersymbol(FERTILIZER)
 dealloc(newmem)
 
 {
