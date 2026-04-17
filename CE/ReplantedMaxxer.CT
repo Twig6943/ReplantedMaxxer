@@ -1,40 +1,773 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CheatTable CheatEngineTableVersion="46">
   <CheatEntries>
-
     <CheatEntry>
-      <ID>5</ID>
-      <Description>"Coin"</Description>
-      <LastState Value="25000" RealAddress="6E11FCD0"/>
-      <VariableType>4 Bytes</VariableType>
-      <Address>"GameAssembly.dll"+04C56590</Address>
-      <Offsets>
-        <Offset>50</Offset>
-        <Offset>B8</Offset>
-        <Offset>5A8</Offset>
-        <Offset>10</Offset>
-        <Offset>10</Offset>
-        <Offset>0</Offset>
-        <Offset>B8</Offset>
-      </Offsets>
-    </CheatEntry>
+      <ID>6</ID>
+      <Description>"Stats"</Description>
+      <GroupHeader>1</GroupHeader>
+      <Address/>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>2</ID>
+          <Description>"Sun"</Description>
+          <VariableType>4 Bytes</VariableType>
+          <Address>"GameAssembly.dll"+04EE9A68</Address>
+          <Offsets>
+            <Offset>10</Offset>
+            <Offset>60</Offset>
+            <Offset>40</Offset>
+            <Offset>C8</Offset>
+            <Offset>18</Offset>
+            <Offset>5E0</Offset>
+            <Offset>B0</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>5</ID>
+          <Description>"Coin"</Description>
+          <VariableType>4 Bytes</VariableType>
+          <Address>"GameAssembly.dll"+04C56590</Address>
+          <Offsets>
+            <Offset>50</Offset>
+            <Offset>B8</Offset>
+            <Offset>5A8</Offset>
+            <Offset>10</Offset>
+            <Offset>10</Offset>
+            <Offset>0</Offset>
+            <Offset>B8</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>11</ID>
+          <Description>"No Seed Cooldown"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Replanted.exe
+  Version:
+  Date   : 2026-04-16
+  Author : steamuser
 
+  Turns off seed cooldown.
+}
+
+[ENABLE]
+
+aobscanmodule(NO_SEED_COOLDOWN,GameAssembly.dll,7E 1A 33 D2 C7 43 70 00 00 00 00) // should be unique
+alloc(newmem,$1000,NO_SEED_COOLDOWN)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  xor edx,edx
+  mov [rbx+70],00000000
+  jmp return
+
+NO_SEED_COOLDOWN:
+  jmp newmem
+  nop 6
+return:
+registersymbol(NO_SEED_COOLDOWN)
+
+[DISABLE]
+
+NO_SEED_COOLDOWN:
+  db 7E 1A 33 D2 C7 43 70 00 00 00 00
+
+unregistersymbol(NO_SEED_COOLDOWN)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: GameAssembly.dll+6D6C5D
+
+GameAssembly.dll+6D6C3E: 5B                          - pop rbx
+GameAssembly.dll+6D6C3F: C3                          - ret
+GameAssembly.dll+6D6C40: 80 BB 9C 00 00 00 00        - cmp byte ptr [rbx+0000009C],00
+GameAssembly.dll+6D6C47: 75 30                       - jne GameAssembly.dll+6D6C79
+GameAssembly.dll+6D6C49: 80 BB 9D 00 00 00 00        - cmp byte ptr [rbx+0000009D],00
+GameAssembly.dll+6D6C50: 74 27                       - je GameAssembly.dll+6D6C79
+GameAssembly.dll+6D6C52: 8B 43 70                    - mov eax,[rbx+70]
+GameAssembly.dll+6D6C55: FF C0                       - inc eax
+GameAssembly.dll+6D6C57: 89 43 70                    - mov [rbx+70],eax
+GameAssembly.dll+6D6C5A: 3B 43 74                    - cmp eax,[rbx+74]
+// ---------- INJECTING HERE ----------
+GameAssembly.dll+6D6C5D: 7E 1A                       - jle GameAssembly.dll+6D6C79
+// ---------- DONE INJECTING  ----------
+GameAssembly.dll+6D6C5F: 33 D2                       - xor edx,edx
+GameAssembly.dll+6D6C61: C7 43 70 00 00 00 00        - mov [rbx+70],00000000
+GameAssembly.dll+6D6C68: 48 8B CB                    - mov rcx,rbx
+GameAssembly.dll+6D6C6B: 66 C7 83 9C 00 00 00 01 00  - mov word ptr [rbx+0000009C],0001
+GameAssembly.dll+6D6C74: E8 27 F2 FF FF              - call GameAssembly.dll+6D5EA0
+GameAssembly.dll+6D6C79: 83 BB 88 00 00 00 00        - cmp dword ptr [rbx+00000088],00
+GameAssembly.dll+6D6C80: 7E B8                       - jle GameAssembly.dll+6D6C3A
+GameAssembly.dll+6D6C82: 48 89 74 24 50              - mov [rsp+50],rsi
+GameAssembly.dll+6D6C87: 8B B3 88 00 00 00           - mov esi,[rbx+00000088]
+GameAssembly.dll+6D6C8D: FF CE                       - dec esi
+}
+
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
     <CheatEntry>
-      <ID>2</ID>
-      <Description>"Sun"</Description>
-      <VariableType>4 Bytes</VariableType>
-      <Address>"GameAssembly.dll"+04EE9A68</Address>
-      <Offsets>
-        <Offset>10</Offset>
-        <Offset>60</Offset>
-        <Offset>40</Offset>
-        <Offset>C8</Offset>
-        <Offset>18</Offset>
-        <Offset>5E0</Offset>
-        <Offset>B0</Offset>
-      </Offsets>
-    </CheatEntry>
+      <ID>10</ID>
+      <Description>"GodMode"</Description>
+      <GroupHeader>1</GroupHeader>
+      <Address/>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>7</ID>
+          <Description>"Plants GodMode"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Replanted.exe
+  Version:
+  Date   : 2026-04-16
+  Author : steamuser
 
+  Toggles god mode for plants.
+}
+
+[ENABLE]
+
+aobscanmodule(PLANTS_GODMODE,GameAssembly.dll,83 AB 8C 00 00 00 04 C7) // should be unique
+alloc(newmem,$1000,PLANTS_GODMODE)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  jmp return
+
+PLANTS_GODMODE:
+  jmp newmem
+  nop 2
+return:
+registersymbol(PLANTS_GODMODE)
+
+[DISABLE]
+
+PLANTS_GODMODE:
+  db 83 AB 8C 00 00 00 04
+
+unregistersymbol(PLANTS_GODMODE)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: GameAssembly.dll+6F10D6
+
+GameAssembly.dll+6F10A1: 7F 33                          - jg GameAssembly.dll+6F10D6
+GameAssembly.dll+6F10A3: 48 8B 4F 18                    - mov rcx,[rdi+18]
+GameAssembly.dll+6F10A7: 48 85 C9                       - test rcx,rcx
+GameAssembly.dll+6F10AA: 0F 84 95 01 00 00              - je GameAssembly.dll+6F1245
+GameAssembly.dll+6F10B0: F3 0F 10 53 24                 - movss xmm2,[rbx+24]
+GameAssembly.dll+6F10B5: 41 B9 04 00 00 00              - mov r9d,00000004
+GameAssembly.dll+6F10BB: F3 0F 10 4B 20                 - movss xmm1,[rbx+20]
+GameAssembly.dll+6F10C0: 48 C7 44 24 28 00 00 00 00     - mov qword ptr [rsp+28],00000000
+GameAssembly.dll+6F10C9: C7 44 24 20 02 00 00 00        - mov [rsp+20],00000002
+GameAssembly.dll+6F10D1: E8 CA 3D F6 FF                 - call GameAssembly.dll+654EA0
+// ---------- INJECTING HERE ----------
+GameAssembly.dll+6F10D6: 83 AB 8C 00 00 00 04           - sub dword ptr [rbx+0000008C],04
+// ---------- DONE INJECTING  ----------
+GameAssembly.dll+6F10DD: C7 83 00 01 00 00 32 00 00 00  - mov [rbx+00000100],00000032
+GameAssembly.dll+6F10E7: 48 8B 4F 10                    - mov rcx,[rdi+10]
+GameAssembly.dll+6F10EB: 48 85 C9                       - test rcx,rcx
+GameAssembly.dll+6F10EE: 0F 84 51 01 00 00              - je GameAssembly.dll+6F1245
+GameAssembly.dll+6F10F4: 33 D2                          - xor edx,edx
+GameAssembly.dll+6F10F6: E8 D5 E4 0E 00                 - call GameAssembly.dll+7DF5D0
+GameAssembly.dll+6F10FB: 84 C0                          - test al,al
+GameAssembly.dll+6F10FD: 74 25                          - je GameAssembly.dll+6F1124
+GameAssembly.dll+6F10FF: 81 BF A8 00 00 00 0C FE FF FF  - cmp [rdi+000000A8],FFFFFE0C
+GameAssembly.dll+6F1109: 7D 19                          - jnl GameAssembly.dll+6F1124
+}
+
+
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>15</ID>
+          <Description>"Zombies GodMode"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Replanted.exe
+  Version:
+  Date   : 2026-04-16
+  Author : steamuser
+
+  Toggles god mode for zombies.
+}
+
+[ENABLE]
+
+
+aobscanmodule(ZOMBIE_GODMODE,GameAssembly.dll,89 AB 20 01 00 00 44) // should be unique
+alloc(newmem,$1000,ZOMBIE_GODMODE)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  //mov [rbx+00000120],ebp
+  jmp return
+
+ZOMBIE_GODMODE:
+  jmp newmem
+  nop
+return:
+registersymbol(ZOMBIE_GODMODE)
+
+[DISABLE]
+
+ZOMBIE_GODMODE:
+  db 89 AB 20 01 00 00
+
+unregistersymbol(ZOMBIE_GODMODE)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: GameAssembly.dll+6F85DA
+
+GameAssembly.dll+6F85B7: 48 8B CB              - mov rcx,rbx
+GameAssembly.dll+6F85BA: E8 71 DE FE FF        - call GameAssembly.dll+6E6430
+GameAssembly.dll+6F85BF: 44 8B B3 20 01 00 00  - mov r14d,[rbx+00000120]
+GameAssembly.dll+6F85C6: 33 D2                 - xor edx,edx
+GameAssembly.dll+6F85C8: 48 8B CB              - mov rcx,rbx
+GameAssembly.dll+6F85CB: E8 50 9A FF FF        - call GameAssembly.dll+6F2020
+GameAssembly.dll+6F85D0: 41 8B EE              - mov ebp,r14d
+GameAssembly.dll+6F85D3: 33 D2                 - xor edx,edx
+GameAssembly.dll+6F85D5: 2B EF                 - sub ebp,edi
+GameAssembly.dll+6F85D7: 48 8B CB              - mov rcx,rbx
+// ---------- INJECTING HERE ----------
+GameAssembly.dll+6F85DA: 89 AB 20 01 00 00     - mov [rbx+00000120],ebp
+// ---------- DONE INJECTING  ----------
+GameAssembly.dll+6F85E0: 44 8B F8              - mov r15d,eax
+GameAssembly.dll+6F85E3: E8 38 9A FF FF        - call GameAssembly.dll+6F2020
+GameAssembly.dll+6F85E8: 45 33 E4              - xor r12d,r12d
+GameAssembly.dll+6F85EB: 8B F8                 - mov edi,eax
+GameAssembly.dll+6F85ED: 83 7B 70 0C           - cmp dword ptr [rbx+70],0C
+GameAssembly.dll+6F85F1: 0F 84 71 07 00 00     - je GameAssembly.dll+6F8D68
+GameAssembly.dll+6F85F7: 83 7B 70 16           - cmp dword ptr [rbx+70],16
+GameAssembly.dll+6F85FB: 0F 84 A6 06 00 00     - je GameAssembly.dll+6F8CA7
+GameAssembly.dll+6F8601: 83 7B 70 17           - cmp dword ptr [rbx+70],17
+GameAssembly.dll+6F8605: 0F 84 7C 05 00 00     - je GameAssembly.dll+6F8B87
+}
+
+
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"Zen Garden"</Description>
+      <GroupHeader>1</GroupHeader>
+      <Address/>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>12</ID>
+          <Description>"Chocolate"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Replanted.exe
+  Version:
+  Date   : 2026-04-10
+  Author : steamuser
+
+  Sets chocolate value to 24 (400)
+}
+
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+
+
+
+aobscanmodule(CHOCOLATE,GameAssembly.dll,FF 88 88 00 00 00 48) // should be unique
+alloc(newmem,$1000,CHOCOLATE)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  //dec [rax+00000088]
+  mov [rax+00000088], 400
+  jmp return
+
+CHOCOLATE:
+  jmp newmem
+  nop
+return:
+registersymbol(CHOCOLATE)
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+CHOCOLATE:
+  db FF 88 88 00 00 00
+
+unregistersymbol(CHOCOLATE)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: GameAssembly.dll+6DBF5A
+
+GameAssembly.dll+6DBF35: 48 8B 15 BC 16 5B 04  - mov rdx,[GameAssembly.dll+4C8D5F8]
+GameAssembly.dll+6DBF3C: B9 1F 00 00 00        - mov ecx,0000001F
+GameAssembly.dll+6DBF41: E8 4A 63 92 FF        - call GameAssembly.dll+2290
+GameAssembly.dll+6DBF46: 48 85 C0              - test rax,rax
+GameAssembly.dll+6DBF49: 74 71                 - je GameAssembly.dll+6DBFBC
+GameAssembly.dll+6DBF4B: 48 8B 40 78           - mov rax,[rax+78]
+GameAssembly.dll+6DBF4F: 48 85 C0              - test rax,rax
+GameAssembly.dll+6DBF52: 74 68                 - je GameAssembly.dll+6DBFBC
+GameAssembly.dll+6DBF54: 83 78 18 1A           - cmp dword ptr [rax+18],1A
+GameAssembly.dll+6DBF58: 76 68                 - jna GameAssembly.dll+6DBFC2
+// ---------- INJECTING HERE ----------
+GameAssembly.dll+6DBF5A: FF 88 88 00 00 00     - dec [rax+00000088]
+// ---------- DONE INJECTING  ----------
+GameAssembly.dll+6DBF60: 48 8B 43 10           - mov rax,[rbx+10]
+GameAssembly.dll+6DBF64: 48 85 C0              - test rax,rax
+GameAssembly.dll+6DBF67: 74 53                 - je GameAssembly.dll+6DBFBC
+GameAssembly.dll+6DBF69: 4C 8B 40 58           - mov r8,[rax+58]
+GameAssembly.dll+6DBF6D: 4D 85 C0              - test r8,r8
+GameAssembly.dll+6DBF70: 74 4A                 - je GameAssembly.dll+6DBFBC
+GameAssembly.dll+6DBF72: 48 8B 15 EF 91 59 04  - mov rdx,[GameAssembly.dll+4C75168]
+GameAssembly.dll+6DBF79: B9 06 00 00 00        - mov ecx,00000006
+GameAssembly.dll+6DBF7E: 41 B9 53 00 00 00     - mov r9d,00000053
+GameAssembly.dll+6DBF84: E8 B7 60 92 FF        - call GameAssembly.dll+2040
+}
+
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>8</ID>
+          <Description>"Spray"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Replanted.exe
+  Version:
+  Date   : 2026-04-11
+  Author : steamuser
+
+  Sets spray value to 24 (400)
+}
+
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+
+
+
+aobscanmodule(SPRAY,GameAssembly.dll,FF 48 5C E9 06 01 00 00) // should be unique
+alloc(newmem,$1000,SPRAY)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rax+5C], 400
+  jmp GameAssembly.dll+6DE153
+  jmp return
+
+SPRAY:
+  jmp newmem
+  nop 3
+return:
+registersymbol(SPRAY)
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+SPRAY:
+  db FF 48 5C E9 06 01 00 00
+
+unregistersymbol(SPRAY)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: GameAssembly.dll+6DE045
+
+GameAssembly.dll+6DE014: 48 8B 15 DD F5 5A 04     - mov rdx,[GameAssembly.dll+4C8D5F8]
+GameAssembly.dll+6DE01B: B9 1F 00 00 00           - mov ecx,0000001F
+GameAssembly.dll+6DE020: E8 6B 42 92 FF           - call GameAssembly.dll+2290
+GameAssembly.dll+6DE025: 48 85 C0                 - test rax,rax
+GameAssembly.dll+6DE028: 0F 84 78 01 00 00        - je GameAssembly.dll+6DE1A6
+GameAssembly.dll+6DE02E: 48 8B 40 78              - mov rax,[rax+78]
+GameAssembly.dll+6DE032: 48 85 C0                 - test rax,rax
+GameAssembly.dll+6DE035: 0F 84 6B 01 00 00        - je GameAssembly.dll+6DE1A6
+GameAssembly.dll+6DE03B: 83 78 18 0F              - cmp dword ptr [rax+18],0F
+GameAssembly.dll+6DE03F: 0F 86 67 01 00 00        - jbe GameAssembly.dll+6DE1AC
+// ---------- INJECTING HERE ----------
+GameAssembly.dll+6DE045: FF 48 5C                 - dec [rax+5C]
+// ---------- DONE INJECTING  ----------
+GameAssembly.dll+6DE048: E9 06 01 00 00           - jmp GameAssembly.dll+6DE153
+GameAssembly.dll+6DE04D: 48 8B 4B 10              - mov rcx,[rbx+10]
+GameAssembly.dll+6DE051: 48 85 C9                 - test rcx,rcx
+GameAssembly.dll+6DE054: 0F 84 4C 01 00 00        - je GameAssembly.dll+6DE1A6
+GameAssembly.dll+6DE05A: F3 0F 10 56 24           - movss xmm2,[rsi+24]
+GameAssembly.dll+6DE05F: 45 33 C9                 - xor r9d,r9d
+GameAssembly.dll+6DE062: F3 0F 10 4E 20           - movss xmm1,[rsi+20]
+GameAssembly.dll+6DE067: 4C 89 64 24 28           - mov [rsp+28],r12
+GameAssembly.dll+6DE06C: C7 44 24 20 6A 00 00 00  - mov [rsp+20],0000006A
+GameAssembly.dll+6DE074: E8 57 B6 0F 00           - call GameAssembly.dll+7D96D0
+}
+
+
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>13</ID>
+          <Description>"Fertilizer"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Replanted.exe
+  Version:
+  Date   : 2026-04-10
+  Author : steamuser
+
+  Sets fertilizer value to 24 (400)
+}
+
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+
+
+
+aobscanmodule(FERTILIZER,GameAssembly.dll,FF 48 58 33 D2) // should be unique
+alloc(newmem,$1000,FERTILIZER)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rax+58], 400
+  xor edx,edx
+  jmp return
+
+FERTILIZER:
+  jmp newmem
+return:
+registersymbol(FERTILIZER)
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+FERTILIZER:
+  db FF 48 58 33 D2
+
+unregistersymbol(FERTILIZER)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: GameAssembly.dll+6DE150
+
+GameAssembly.dll+6DE12B: 48 8B 15 C6 F4 5A 04  - mov rdx,[GameAssembly.dll+4C8D5F8]
+GameAssembly.dll+6DE132: B9 1F 00 00 00        - mov ecx,0000001F
+GameAssembly.dll+6DE137: E8 54 41 92 FF        - call GameAssembly.dll+2290
+GameAssembly.dll+6DE13C: 48 85 C0              - test rax,rax
+GameAssembly.dll+6DE13F: 74 65                 - je GameAssembly.dll+6DE1A6
+GameAssembly.dll+6DE141: 48 8B 40 78           - mov rax,[rax+78]
+GameAssembly.dll+6DE145: 48 85 C0              - test rax,rax
+GameAssembly.dll+6DE148: 74 5C                 - je GameAssembly.dll+6DE1A6
+GameAssembly.dll+6DE14A: 83 78 18 0E           - cmp dword ptr [rax+18],0E
+GameAssembly.dll+6DE14E: 76 5C                 - jna GameAssembly.dll+6DE1AC
+// ---------- INJECTING HERE ----------
+GameAssembly.dll+6DE150: FF 48 58              - dec [rax+58]
+// ---------- DONE INJECTING  ----------
+GameAssembly.dll+6DE153: 33 D2                 - xor edx,edx
+GameAssembly.dll+6DE155: 48 8B CB              - mov rcx,rbx
+GameAssembly.dll+6DE158: E8 83 31 00 00        - call GameAssembly.dll+6E12E0
+GameAssembly.dll+6DE15D: 48 8B D6              - mov rdx,rsi
+GameAssembly.dll+6DE160: 48 89 73 48           - mov [rbx+48],rsi
+GameAssembly.dll+6DE164: 48 8D 4B 48           - lea rcx,[rbx+48]
+GameAssembly.dll+6DE168: E8 33 FD E1 FF        - call GameAssembly.dll+4FDEA0
+GameAssembly.dll+6DE16D: 48 8B 4B 18           - mov rcx,[rbx+18]
+GameAssembly.dll+6DE171: 48 85 C9              - test rcx,rcx
+GameAssembly.dll+6DE174: 74 30                 - je GameAssembly.dll+6DE1A6
+}
+
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>14</ID>
+          <Description>"Tree Food"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Replanted.exe
+  Version:
+  Date   : 2026-04-11
+  Author : steamuser
+
+  Sets tree food value to 24 (400)
+}
+
+define(address,"GameAssembly.dll"+68E8DC)
+define(bytes,FF 88 90 00 00 00)
+
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+
+
+
+assert(address,bytes)
+alloc(newmem,$1000,"GameAssembly.dll"+68E8DC)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [rax+00000090], 400
+  jmp return
+
+address:
+  jmp newmem
+  nop
+return:
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+address:
+  db bytes
+  // dec [rax+00000090]
+
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: GameAssembly.dll+68E8DC
+
+GameAssembly.dll+68E8B7: 48 8B 15 3A ED 5F 04  - mov rdx,[GameAssembly.dll+4C8D5F8]
+GameAssembly.dll+68E8BE: B9 1F 00 00 00        - mov ecx,0000001F
+GameAssembly.dll+68E8C3: E8 C8 39 97 FF        - call GameAssembly.dll+2290
+GameAssembly.dll+68E8C8: 48 85 C0              - test rax,rax
+GameAssembly.dll+68E8CB: 74 54                 - je GameAssembly.dll+68E921
+GameAssembly.dll+68E8CD: 48 8B 40 78           - mov rax,[rax+78]
+GameAssembly.dll+68E8D1: 48 85 C0              - test rax,rax
+GameAssembly.dll+68E8D4: 74 4B                 - je GameAssembly.dll+68E921
+GameAssembly.dll+68E8D6: 83 78 18 1C           - cmp dword ptr [rax+18],1C
+GameAssembly.dll+68E8DA: 76 4B                 - jna GameAssembly.dll+68E927
+// ---------- INJECTING HERE ----------
+GameAssembly.dll+68E8DC: FF 88 90 00 00 00     - dec [rax+00000090]
+// ---------- DONE INJECTING  ----------
+GameAssembly.dll+68E8E2: 48 8B 4B 18           - mov rcx,[rbx+18]
+GameAssembly.dll+68E8E6: 89 73 54              - mov [rbx+54],esi
+GameAssembly.dll+68E8E9: 48 85 C9              - test rcx,rcx
+GameAssembly.dll+68E8EC: 74 33                 - je GameAssembly.dll+68E921
+GameAssembly.dll+68E8EE: 45 33 C9              - xor r9d,r9d
+GameAssembly.dll+68E8F1: 45 33 C0              - xor r8d,r8d
+GameAssembly.dll+68E8F4: 33 D2                 - xor edx,edx
+GameAssembly.dll+68E8F6: E8 65 95 FC FF        - call GameAssembly.dll+657E60
+GameAssembly.dll+68E8FB: 48 8B 4B 18           - mov rcx,[rbx+18]
+GameAssembly.dll+68E8FF: 48 85 C9              - test rcx,rcx
+}
+
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>16</ID>
+      <Description>"Multipliers"</Description>
+      <GroupHeader>1</GroupHeader>
+      <Address/>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>17</ID>
+          <Description>"Sun Multiplier"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Replanted.exe
+  Version:
+  Date   : 2026-04-10
+  Author : steamuser
+
+  Multiplies earned sun by 2x.
+}
+
+
+[ENABLE]
+
+aobscanmodule(SUN_MULTIPLIER,GameAssembly.dll,01 70 10 48 8B 8B * * 00 00 48 85 C9) // should be unique
+alloc(newmem,$1000,SUN_MULTIPLIER)
+
+label(code)
+label(return)
+alloc(sun_mul,4)
+registersymbol(sun_mul)
+sun_mul:
+dd 4
+// Save
+alloc(SUN_MULTIPLIER_SAVED,10)
+SUN_MULTIPLIER_SAVED:
+  readmem(SUN_MULTIPLIER,10)
+registersymbol(SUN_MULTIPLIER_SAVED)
+
+newmem:
+  imul esi,[sun_mul]
+code:
+  readmem(SUN_MULTIPLIER,10)
+  jmp return
+
+SUN_MULTIPLIER:
+  jmp newmem
+  nop 5
+return:
+registersymbol(SUN_MULTIPLIER)
+
+[DISABLE]
+
+SUN_MULTIPLIER:
+  readmem(SUN_MULTIPLIER_SAVED,10)
+
+unregistersymbol(*)
+dealloc(*)
+
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>20</ID>
+          <Description>"Coin Multiplier"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Replanted.exe
+  Version:
+  Date   : 2026-04-10
+  Author : steamuser
+
+  Multiplies earned coins by 4x.
+}
+
+[ENABLE]
+
+
+aobscanmodule(COINS_MULTIPLIER,GameAssembly.dll,01 58 50 48 83 C4 20) // should be unique
+alloc(newmem,$1000,COINS_MULTIPLIER)
+
+label(code)
+label(return)
+
+alloc(coin_mult,4)
+registersymbol(coin_mult)
+
+coin_mult:
+dd 4
+
+newmem:
+  imul ebx,[coin_mult]
+code:
+  add [rax+50],ebx
+  add rsp,20
+  jmp return
+
+COINS_MULTIPLIER:
+  jmp newmem
+  nop 2
+return:
+registersymbol(COINS_MULTIPLIER)
+
+[DISABLE]
+
+COINS_MULTIPLIER:
+  db 01 58 50 48 83 C4 20
+
+unregistersymbol(*)
+dealloc(*)
+
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>18</ID>
+      <Description>"One-hit kill (Browncoat)"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : Replanted.exe
+  Version:
+  Date   : 2026-04-16
+  Author : steamuser
+
+  Sets damage done to browncoat to 5000.
+}
+
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048,"GameAssembly.dll"+6F85D0)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+sub ebp,(int)5000 //
+//mov ebp,r14d
+xor edx,edx
+
+exit:
+jmp returnhere
+
+"GameAssembly.dll"+6F85D0:
+jmp newmem
+returnhere:
+
+
+
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"GameAssembly.dll"+6F85D0:
+db 41 8B EE 33 D2
+//mov ebp,r14d
+//xor edx,edx
+
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>19</ID>
+      <Description>"Shoot fast"</Description>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : Replanted.exe
+  Version:
+  Date   : 2026-04-16
+  Author : steamuser
+
+  Makes plants shoot faster by 25x.
+}
+
+[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048,"GameAssembly.dll"+6BC499)
+label(returnhere)
+label(originalcode)
+label(exit)
+
+newmem: //this is allocated memory, you have read,write,execute access
+//place your code here
+
+originalcode:
+mov [rbx+000000A4],25
+
+exit:
+jmp returnhere
+
+"GameAssembly.dll"+6BC499:
+jmp newmem
+nop
+returnhere:
+
+
+
+
+
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+"GameAssembly.dll"+6BC499:
+db 89 BB A4 00 00 00
+//mov [rbx+000000A4],edi
+
+</AssemblerScript>
+    </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>
 </CheatTable>
