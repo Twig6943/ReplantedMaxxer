@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
-project(ReplantedMaxxer VERSION 0.5 LANGUAGES C CXX)
+project(ReplantedMaxxer VERSION 1.0 LANGUAGES C CXX)
 
 include(FetchContent)
 
