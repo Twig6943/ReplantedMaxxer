@@ -170,5 +170,5 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
 # DLL Proxy
 # ------------------------
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
-    "${CMAKE_SOURCE_DIR}/DllProxy.def"
+    "${CMAKE_CURRENT_SOURCE_DIR}/DllProxy.def"
 )

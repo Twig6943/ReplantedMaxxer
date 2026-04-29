@@ -25,8 +25,8 @@ See the [workflows](./.github/workflows/)
 - Manage dependencies via git ✅
 - Add toggle for the gui (F1) ✅
 - Combine everything to a single .CT ✅
-- DLL refactos 🟥
-- Make it so that the UI survives when the window is resized (still kinda dies if you alt tab when the game is fullscreen) 🟨
+- DLL refactos ✅
+- Make it so that the UI survives when the window is resized ✅
 - Add version info via git (date/hash) 🟥
 - Ability to uninject the DLL 🟥
 - Actually convert the CE stuff to DLL 🟥
