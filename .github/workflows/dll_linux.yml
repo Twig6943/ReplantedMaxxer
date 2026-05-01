@@ -39,10 +39,8 @@ jobs:
           ./msvc-wine/vsdownload.py --accept-license --architecture x64 --dest $WINDOWS_SDK_PATH
           ./msvc-wine/install.sh $WINDOWS_SDK_PATH
           export PATH=$WINDOWS_SDK_PATH/bin/x64:$PATH
-          mkdir -p build
-          cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_SYSTEM_PROCESSOR=x64 -DWINDOWS_SDK_PATH=$WINDOWS_SDK_PATH -DCMAKE_TOOLCHAIN_FILE=../toolchain-linux-winsdk.cmake
-          make -j$(nproc)
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_SYSTEM_PROCESSOR=x64 -DWINDOWS_SDK_PATH=$WINDOWS_SDK_PATH -DCMAKE_TOOLCHAIN_FILE=../toolchain-linux-winsdk.cmake
+          make -C build -j$(nproc)
           EOF
 
       - name: Upload artifact/s

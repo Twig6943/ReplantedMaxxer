@@ -27,7 +27,7 @@ See the [workflows](./.github/workflows/)
 - Combine everything to a single .CT ✅
 - DLL refactos ✅
 - Make it so that the UI survives when the window is resized ✅
-- Add version info via git (date/hash) 🟥
+- Add version info via git (hash/date) ✅
 - Ability to uninject the DLL 🟥
 - Actually convert the CE stuff to DLL 🟥
 

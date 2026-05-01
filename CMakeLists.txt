@@ -1,6 +1,32 @@
 cmake_minimum_required(VERSION 3.24)
 project(ReplantedMaxxer VERSION 1.0 LANGUAGES C CXX)
 
+# ============================================================
+# Get Git commit info
+# ============================================================
+
+execute_process(
+    COMMAND git rev-parse --short HEAD
+    OUTPUT_VARIABLE GIT_HASH
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    ERROR_QUIET
+)
+
+execute_process(
+    COMMAND git show -s --format=%cd --date=short
+    OUTPUT_VARIABLE GIT_DATE
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    ERROR_QUIET
+)
+
+if(NOT GIT_HASH)
+  set(GIT_HASH "unknown")
+endif()
+
+if(NOT GIT_DATE)
+  set(GIT_DATE "unknown")
+endif()
+
 include(FetchContent)
 
 set(CMAKE_C_STANDARD 23)
@@ -152,6 +178,14 @@ file(GLOB_RECURSE PROJECT_SOURCES_HH
 add_library(${CMAKE_PROJECT_NAME} SHARED
     ${PROJECT_SOURCES_CXX}
     ${PROJECT_SOURCES_HH}
+)
+
+# ------------------------
+# Definitions
+# ------------------------
+target_compile_definitions(${PROJECT_NAME} PRIVATE
+  GIT_HASH="${GIT_HASH}"
+  GIT_DATE="${GIT_DATE}"
 )
 
 # ------------------------

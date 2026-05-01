@@ -13,7 +13,7 @@ void Menu::Initialize() {
 
 void Menu::SetupStyle() {
   ImGui::StyleColorsDark();
-  
+
   float dpiScale = 1.0f;
   ImGuiStyle& style = ImGui::GetStyle();
   style.ScaleAllSizes(dpiScale);
@@ -45,6 +45,7 @@ void Menu::Render() {
 
   ImGui::Begin("ImGui Window");
   ImGui::Text("(Press F1 to toggle)");
+  ImGui::Text("Version: %s.%s", GIT_HASH, GIT_DATE);
 
   ImGui::Button("Eject Dll");
 
